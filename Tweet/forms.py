@@ -1,7 +1,17 @@
 from django import forms
-from .models import Tweet
+from .models import Tweet, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+
+#profile Extras Form
+class profilePicForm(forms.ModelForm):
+    profile_image = forms.ImageField(label="Profile Picture")
+    
+    
+    class Meta:
+        model = Profile
+        fields = ('profile_image', )
 
 class TweetForm(forms.ModelForm):
     body = forms.CharField(required=True,
@@ -13,10 +23,12 @@ class TweetForm(forms.ModelForm):
             ),
         label="",               
     )
+  
+       
     
     class Meta:
         model = Tweet
-        exclude = ("user",)
+        exclude = ("user", "likes" )
         
         
 class SignUpForm(UserCreationForm):
